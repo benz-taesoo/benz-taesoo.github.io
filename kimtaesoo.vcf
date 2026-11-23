@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+N:김;태수;;과장;
+FN:김태수 과장
+ORG:메르세데스-벤츠 HS효성 더클래스;구리전시장 영업3팀
+TITLE:세일즈 컨설턴트
+TEL;TYPE=CELL,VOICE,PREF:+82-10-9091-7089
+TEL;TYPE=WORK,VOICE:+82-31-579-0900
+TEL;TYPE=WORK,FAX:+82-504-215-7089
+EMAIL;TYPE=WORK:ts.kim3@hshyosungtheclass.com
+ADR;TYPE=WORK:;;한다리길 13 (교문동);구리시;경기도;11955;대한민국
+URL:https://benz-taesoo.github.io/benz_taesoo/
+NOTE:메르세데스-벤츠 공식딜러 · 견적 · 시승 · 상담
+END:VCARD
