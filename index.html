@@ -531,7 +531,7 @@ dialog#md:not([open]){display:none}dialog#md[open]{position:fixed;inset:0;margin
   <div class="map"><img src="img/map.png" alt="메르세데스-벤츠 HS효성 더클래스 구리전시장 약도: 아차산로 변, 구리암사대교 · 아천IC 교차로와 한다리마을 사이" loading="lazy"></div>
 </div></section>
 
-<footer><div class="wrap">
+<footer data-nomonth><div class="wrap">
   <span>이 페이지는 메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수가 개인적으로 운영하는 상담 채널이며, 메르세데스-벤츠 코리아 공식 사이트가 아닙니다.</span>
   <span>가격은 메르세데스-벤츠 일반 소비자 판매 가격표(2026년 11월 17일, 부가세 포함), 할인은 메르세데스-벤츠 코리아 11월 고객 리테일 프로모션(11월 2일, V-Class 11월 16일) 기준이며 11월 30일까지 유효합니다. 재고, 연식, 금융 조건에 따라 달라질 수 있고 최종 조건은 견적서로 확정됩니다. 차량 이미지는 공식 카탈로그에서 가져왔습니다.</span>
   <span>경기도 구리시 한다리길 13 · 010-9091-7089 · © 2026 김태수</span>
@@ -846,6 +846,25 @@ clr.addEventListener('click',()=>{q.value='';run();q.focus()});
 chips.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;q.value=b.getAttribute('aria-pressed')==='true'?'':b.textContent;run()});
 list.addEventListener('click',e=>{const b=e.target.closest('[data-pt]');if(b)openConsult(null,`제휴사 임직원 조건 문의: ${b.dataset.pt}`)});
 $('pt-ask-none').addEventListener('click',()=>openConsult(null,`제휴사 적용 여부 문의: ${q.value.trim()}`));
+}
+
+/* 월 자동 표시: 한국 시간 기준 이번 달로 '11월' 문구를 바꿔 보여줌.
+   '11월 17일'처럼 날짜가 붙은 표기와 data-nomonth 영역(출처 · 기준일 고지)은 그대로 둠 */
+{
+  const MON=+new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',month:'numeric'}).format(new Date());
+  const BASE_MON=11;   // 페이지 문구를 작성한 달
+  if(MON!==BASE_MON){
+    const re=new RegExp(BASE_MON+'월(?!\\s?\\d{1,2}일)','g'), to=MON+'월';
+    const skip=n=>{for(let e=n.parentElement;e;e=e.parentElement){if(e.hasAttribute&&e.hasAttribute('data-nomonth'))return true;if(e.tagName==='SCRIPT'||e.tagName==='STYLE'||e.tagName==='TEXTAREA')return true}return false};
+    const fix=root=>{
+      const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;
+      while((n=w.nextNode())){if(n.nodeValue.indexOf(BASE_MON+'월')<0||skip(n))continue;const v=n.nodeValue.replace(re,to);if(v!==n.nodeValue)n.nodeValue=v}
+    };
+    fix(document.body);
+    document.title=document.title.replace(re,to);
+    new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData'){if(!skip(m.target)&&m.target.nodeValue.indexOf(BASE_MON+'월')>=0){const v=m.target.nodeValue.replace(re,to);if(v!==m.target.nodeValue)m.target.nodeValue=v}}else m.addedNodes.forEach(a=>{if(a.nodeType===3){if(!skip(a)&&a.nodeValue.indexOf(BASE_MON+'월')>=0)a.nodeValue=a.nodeValue.replace(re,to)}else if(a.nodeType===1)fix(a)})}})
+      .observe(document.body,{childList:true,subtree:true,characterData:true});
+  }
 }
 }
 </script>
