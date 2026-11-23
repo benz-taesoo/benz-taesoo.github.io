@@ -3,10 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>벤츠 공식딜러 김태수 | HS효성 더클래스 구리전시장 11월 프로모션 · 견적 상담</title>
-<meta name="description" content="메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수. 11월 27년식 E-Class 최대 18%, EQA 최대 14% 등 이달 프로모션과 재구매 · 트레이드인 혜택, 실구매가 계산기, 27년식 25개 차종 가격을 한 번에 확인하세요.">
+<title>벤츠 구리전시장 김태수 | 메르세데스-벤츠 HS효성 더클래스 구리 전시장 공식딜러</title>
+<meta name="keywords" content="벤츠 구리전시장, 벤츠 구리 전시장, 메르세데스-벤츠 구리, HS효성 더클래스 구리, 벤츠 딜러, 벤츠 프로모션, 벤츠 견적, 김태수">
+<link rel="canonical" href="https://benz-taesoo.github.io/">
+<meta name="robots" content="index,follow">
+<meta property="og:site_name" content="벤츠 구리전시장 김태수">
+<meta property="og:locale" content="ko_KR">
+<!--NAVER_VERIFY-->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "AutoDealer", "name": "메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수 과장", "alternateName": ["벤츠 구리전시장", "벤츠 구리 전시장", "메르세데스-벤츠 구리 전시장", "HS효성 더클래스 구리전시장"], "url": "https://benz-taesoo.github.io/", "image": "https://benz-taesoo.github.io/img/og.jpg", "telephone": "+82-10-9091-7089", "email": "ts.kim3@hshyosungtheclass.com", "address": {"@type": "PostalAddress", "streetAddress": "한다리길 13 (교문동)", "addressLocality": "구리시", "addressRegion": "경기도", "postalCode": "11955", "addressCountry": "KR"}, "brand": {"@type": "Brand", "name": "Mercedes-Benz"}, "parentOrganization": {"@type": "Organization", "name": "HS효성 더클래스", "url": "https://www.hshyosungtheclass.com"}, "employee": {"@type": "Person", "name": "김태수", "jobTitle": "세일즈 컨설턴트 (과장)", "telephone": "+82-10-9091-7089"}, "sameAs": ["https://blog.naver.com/benz_taesoo", "https://open.kakao.com/o/sOzF0QQh"]}</script>
+<meta name="description" content="벤츠 구리 전시장(메르세데스-벤츠 HS효성 더클래스 구리전시장) 김태수 과장. 경기도 구리시 한다리길 13. 이달 프로모션, 실구매가 계산, 27년식 전 차종 가격 · 옵션 · 카탈로그, 시승 · 견적 상담 010-9091-7089.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="벤츠 공식딜러 김태수 · HS효성 더클래스 구리전시장">
+<meta property="og:title" content="벤츠 구리전시장 김태수 · HS효성 더클래스 공식딜러">
 <meta property="og:description" content="11월 프로모션 · 실구매가 계산 · 전 차종 가격 | 010-9091-7089">
 <meta property="og:image" content="https://benz-taesoo.github.io/img/og.jpg">
 <meta property="og:url" content="https://benz-taesoo.github.io/">
@@ -288,9 +295,12 @@ details.catopt summary{cursor:pointer;font-weight:700;font-size:16px;padding:6px
 /* 헤더: 메뉴가 늘어나 한 줄 유지 */
 nav a,.brand small{white-space:nowrap}
 nav{gap:22px}
-.hd .row{flex-wrap:nowrap}
-@media(max-width:1440px){.hd .row .ghost-l{display:none}}
-@media(max-width:1180px){nav{gap:16px;font-size:15px}nav a[href="#perks"],nav a[href="#visit"]{display:none}}
+/* 헤더: 로고 영역은 줄어들지 않게, 메뉴가 넘치면 스크립트가 덜 중요한 항목부터 숨김 */
+.hd .brand{flex:none}
+.hd nav{min-width:0;flex:0 1 auto;overflow:hidden}
+.hd .row{flex-wrap:nowrap;flex:none}
+.hdhide{display:none!important}
+@media(max-width:1180px){nav{gap:16px;font-size:15px}}
 /* 재구매 명의 범위 표 */
 .own{margin-top:28px;background:var(--bg);border-radius:16px;padding:26px 28px;display:grid;gap:12px}
 .own h3{margin:0;font-size:20px}
@@ -310,6 +320,7 @@ nav{gap:22px}
   .own-r span:nth-child(2){grid-column:1;color:var(--sub);font-size:15px}
   .own-r span:nth-child(3){grid-column:2;grid-row:1/span 2;align-self:center}
 }
+header .wrap{max-width:1360px}
 
 /* ===== 아이패드 · 태블릿 최적화 ===== */
 .bar{-webkit-backdrop-filter:blur(8px)}
@@ -546,7 +557,8 @@ dialog#md:not([open]){display:none}dialog#md[open]{position:fixed;inset:0;margin
 <section id="visit" class="dark sec"><div class="wrap visit">
   <div style="display:grid;gap:18px">
     <h2>메르세데스-벤츠 HS효성 더클래스 구리전시장</h2>
-    <p style="font-size:20px;color:#fff">경기도 구리시 한다리길 13</p>
+    <p style="font-size:20px;color:#fff">경기도 구리시 한다리길 13 (교문동)</p>
+    <p>벤츠 구리 전시장을 찾으신다면 이곳입니다. 메르세데스-벤츠 공식딜러 HS효성 더클래스가 운영하는 구리전시장입니다.</p>
     <p>아차산로 변, 구리암사대교(아천IC) 교차로에서 구리시청 방향입니다. 강변북로와 올림픽대로에서 바로 연결됩니다.</p>
     <p>방문 전에 연락 주시면 보고 싶은 차량을 준비하고 시승도 예약해 두겠습니다.</p>
     <div class="row"><a class="btn naver" href="https://map.naver.com/p/search/%EB%A9%94%EB%A5%B4%EC%84%B8%EB%8D%B0%EC%8A%A4-%EB%B2%A4%EC%B8%A0%20%EA%B5%AC%EB%A6%AC%EC%A0%84%EC%8B%9C%EC%9E%A5">네이버 지도</a><a class="btn kakao" href="https://map.kakao.com/?q=%EA%B5%AC%EB%A6%AC%EC%8B%9C%20%ED%95%9C%EB%8B%A4%EB%A6%AC%EA%B8%B8%2013">카카오맵</a></div>
@@ -911,6 +923,25 @@ $('pt-ask-none').addEventListener('click',()=>openConsult(null,`제휴사 적용
     new MutationObserver(ms=>{for(const m of ms){if(m.type==='characterData'){if(!skip(m.target)&&m.target.nodeValue.indexOf(BASE_MON+'월')>=0){const v=m.target.nodeValue.replace(re,to);if(v!==m.target.nodeValue)m.target.nodeValue=v}}else m.addedNodes.forEach(a=>{if(a.nodeType===3){if(!skip(a)&&a.nodeValue.indexOf(BASE_MON+'월')>=0)a.nodeValue=a.nodeValue.replace(re,to)}else if(a.nodeType===1)fix(a)})}})
       .observe(document.body,{childList:true,subtree:true,characterData:true});
   }
+}
+
+/* 헤더 맞춤: 화면 폭 · 글꼴에 따라 메뉴가 로고나 버튼과 겹치지 않도록 덜 중요한 항목부터 숨김 */
+{
+  const hd=document.querySelector('.hd'), brand=hd&&hd.querySelector('.brand'), nav=hd&&hd.querySelector('nav'), row=hd&&hd.querySelector('.row');
+  const order=[()=>row&&row.querySelector('.ghost-l'),()=>nav.querySelector('a[href="#perks"]'),()=>nav.querySelector('a[href="#visit"]'),()=>nav.querySelector('a[href="#partner"]'),()=>nav.querySelector('a[href="#consult"]'),()=>nav.querySelector('a[href="#calc"]')];
+  const fits=()=>{
+    if(nav.scrollWidth>nav.clientWidth+1)return false;
+    const b=brand.getBoundingClientRect(), n=nav.getBoundingClientRect(), r=row?row.getBoundingClientRect():{left:1e9};
+    return b.right+12<=n.left && n.right+12<=r.left;
+  };
+  function fitHeader(){
+    if(!hd||!nav)return;
+    hd.querySelectorAll('.hdhide').forEach(e=>e.classList.remove('hdhide'));
+    if(getComputedStyle(nav).display==='none')return;
+    for(const pick of order){ if(fits())break; const el=pick(); if(el)el.classList.add('hdhide'); }
+  }
+  let rt; addEventListener('resize',()=>{cancelAnimationFrame(rt);rt=requestAnimationFrame(fitHeader)});
+  fitHeader(); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitHeader);
 }
 }
 </script>
