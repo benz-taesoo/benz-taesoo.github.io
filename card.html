@@ -18,6 +18,7 @@
 <style>
 :root{--blue:#0070c9;--line:#2a2b2f;--sub:#a9abb1}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:#000;color:#fff;font:17px/1.6 "Noto Sans KR",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",system-ui,sans-serif;word-break:keep-all;padding:env(safe-area-inset-top) 0 calc(28px + env(safe-area-inset-bottom))}
 a{color:inherit}
@@ -40,10 +41,20 @@ textarea{width:100%;min-height:200px;resize:vertical;border-radius:12px;border:1
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;color:#111;padding:12px 18px;border-radius:12px;font-size:15px;font-weight:700;max-width:90vw;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9}
 .toast.on{opacity:1}
 .fine{color:#7d8086;font-size:13.5px;line-height:1.6;margin:0}
+.hello{margin:0;font-size:21px;font-weight:700;line-height:1.45}
+.hello small{display:block;font-size:16px;font-weight:400;color:var(--sub)}
+.to{display:grid;gap:6px}
+.to label{font-size:15px;font-weight:700}
+.to-row{display:flex;gap:8px}
+.to input{flex:1;min-width:0;min-height:52px;border-radius:12px;border:1px solid #3a3b40;background:#0b0b0c;color:#fff;font:17px inherit;font-family:inherit;padding:0 14px}
+.to input:focus-visible{outline:3px solid #5aa9ff;outline-offset:2px}
+.pick{width:auto;flex:none;min-height:52px;font-size:15px}
+.to-tel{font-size:14px;color:var(--sub)}
 </style>
 </head>
 <body>
 <main class="w">
+  <p class="hello" id="hello" hidden></p>
   <img class="card" src="img/card.png" alt="김태수 과장 명함: 메르세데스-벤츠 HS효성 더클래스 구리전시장, 010-9091-7089, ts.kim3@hshyosungtheclass.com" width="1202" height="653">
   <div class="who">
     <h1>김태수 과장</h1>
@@ -52,7 +63,12 @@ textarea{width:100%;min-height:200px;resize:vertical;border-radius:12px;border:1
 
   <section class="send" aria-labelledby="st">
     <h2 id="st">명함 + 홈페이지 링크 보내기</h2>
-    <p>버튼 한 번으로 명함 이미지와 안내 문구 · 링크가 함께 전송됩니다. 받는 분 이름이나 차종을 넣어 문구를 고쳐 보내도 됩니다.</p>
+    <p>받는 분 이름을 넣으면 인사말에 바로 들어가고, 고객이 링크를 열었을 때도 이름으로 맞이합니다. 버튼 한 번으로 명함 이미지와 문구 · 링크가 함께 전송됩니다.</p>
+    <div class="to">
+      <label for="to">받는 분 이름</label>
+      <div class="to-row"><input id="to" type="text" maxlength="20" autocomplete="off" placeholder="예: 홍길동"><button class="btn b-l pick" id="pick" type="button" hidden>연락처에서 선택</button></div>
+      <span class="to-tel" id="tel" hidden></span>
+    </div>
     <textarea id="msg" aria-label="보낼 안내 문구"></textarea>
     <button class="btn b-main" id="share" type="button">명함과 링크 함께 보내기</button>
     <div class="g2">
@@ -78,8 +94,35 @@ textarea{width:100%;min-height:200px;resize:vertical;border-radius:12px;border:1
 (function(){
   var BASE='https://benz-taesoo.github.io/', CARD=BASE+'card.html';
   var $=function(id){return document.getElementById(id)};
-  var msg=$('msg');
-  msg.value='안녕하세요, 메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수 과장입니다.\n\n이달 프로모션과 실구매가 계산, 차종별 옵션 · 색상을 아래 홈페이지에서 바로 확인하실 수 있습니다.\n'+BASE+'\n\n연락처 저장 · 모바일 명함\n'+CARD+'\n\n궁금하신 점은 언제든 편하게 연락 주세요.\n김태수 010-9091-7089';
+  var msg=$('msg'), toIn=$('to'), telTo='';
+  var q=new URLSearchParams(location.search), guest=(q.get('to')||'').trim().slice(0,20);
+  function clean(n){return (n||'').replace(/[<>"']/g,'').trim().slice(0,20)}
+  function withTo(u,n){n=(n||'').replace(/\s+/g,'');return n?u+(u.indexOf('?')<0?'?':'&')+'to='+n.replace(/[&#?%]/g,''):u}  // 한글 그대로 (문자에서 잘려도 기본 페이지로 열림)
+  function build(n){
+    var hi=n?n+' 고객님, 안녕하세요.\n메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수 과장입니다.':'안녕하세요, 메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수 과장입니다.';
+    return hi+'\n\n이달 프로모션과 실구매가 계산, 차종별 옵션 · 색상을 아래 홈페이지에서 바로 확인하실 수 있습니다.\n'+withTo(BASE,n)+'\n\n연락처 저장 · 모바일 명함\n'+withTo(CARD,n)+'\n\n궁금하신 점은 언제든 편하게 연락 주세요.\n김태수 010-9091-7089';
+  }
+  msg.value=build('');
+  toIn.addEventListener('input',function(){msg.value=build(clean(toIn.value))});
+  // 고객이 받은 링크로 들어온 경우: 이름으로 인사하고 보내기 영역은 숨김
+  if(guest){
+    var h=$('hello');h.hidden=false;h.textContent='';
+    h.appendChild(document.createTextNode(clean(guest)+' 고객님, 반갑습니다.'));
+    var sm=document.createElement('small');sm.textContent='메르세데스-벤츠 HS효성 더클래스 구리전시장 김태수 과장입니다. 아래에서 연락처를 저장해 두시면 편하게 연락하실 수 있어요.';h.appendChild(sm);
+    document.querySelector('.send').hidden=true;
+    document.title=clean(guest)+' 고객님께 · 김태수 과장 명함';
+  }
+  // 연락처에서 선택 (안드로이드 크롬 등 지원 기기에서만 표시)
+  if('contacts' in navigator&&'ContactsManager' in window){
+    $('pick').hidden=false;
+    $('pick').addEventListener('click',function(){
+      navigator.contacts.select(['name','tel'],{multiple:false}).then(function(r){
+        if(!r||!r.length)return;var c=r[0];var n=clean((c.name&&c.name[0])||'');telTo=((c.tel&&c.tel[0])||'').replace(/[^0-9+]/g,'');
+        toIn.value=n;msg.value=build(n);
+        var t=$('tel');if(telTo){t.hidden=false;t.textContent='문자 받는 번호: '+telTo}else{t.hidden=true}
+      }).catch(function(){});
+    });
+  }
   function toast(t){var e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(function(){e.classList.remove('on')},3000)}
   function copy(t){
     if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(function(){return true},function(){return false});
@@ -99,7 +142,7 @@ textarea{width:100%;min-height:200px;resize:vertical;border-radius:12px;border:1
     }
   });
   $('copy').addEventListener('click',function(){copy(msg.value).then(function(ok){toast(ok?'문구와 링크를 복사했어요.':'문구를 길게 눌러 복사해 주세요.')})});
-  $('sms').addEventListener('click',function(e){e.preventDefault();location.href='sms:?&body='+encodeURIComponent(msg.value)});
+  $('sms').addEventListener('click',function(e){e.preventDefault();location.href='sms:'+telTo+'?&body='+encodeURIComponent(msg.value)});
 })();
 </script>
 </body>

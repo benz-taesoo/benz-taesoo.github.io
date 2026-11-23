@@ -807,6 +807,14 @@ $('md-consult').addEventListener('click',()=>{
   md.close(); openConsult(m.id, sel?'관심 사양: '+sel:'');
 });
 cf.addEventListener('input',e=>{if(e.target.getAttribute('aria-invalid')==='true'){e.target.setAttribute('aria-invalid','false');if(!cf.querySelector('[aria-invalid=true]'))$('cf-err').textContent=''}});
+/* 명함 링크로 들어온 고객: ?to=이름 → 인사 + 상담 폼 이름 미리 채우기 */
+{
+  const to=(new URLSearchParams(location.search).get('to')||'').replace(/[<>"']/g,'').trim().slice(0,20);
+  if(to){
+    const k=document.querySelector('.kicker'); if(k)k.textContent=to+' 고객님을 위한 11월 구매 혜택';
+    if(!$('cf-name').value)$('cf-name').value=to;
+  }
+}
 
 /* 제휴 회사 검색 */
 {
